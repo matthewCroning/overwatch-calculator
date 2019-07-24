@@ -1,0 +1,147 @@
+<div class="container">
+
+        <div class="row">
+            <div class="col justify-content-start">
+                <h3 class="h3-underline">Select Your Team</h3>
+            </div>
+        </div>    
+        
+        <div class="row">
+            <div class="col-md-4" *ngFor="let role of ['tank','dps','support']">
+                <ng-container  *ngFor="let hero of heroes">
+                    <ng-container *ngIf= "role == hero.role">
+                        <button *ngIf="hero.selected == false" class="button button-blue" [style.backgroundImage]="'url('+ hero.imageURL +')'" (click)="selectMyTeam(hero)"></button>
+                        <button *ngIf="hero.selected == true" class="button button-blue-selected" [style.backgroundImage]="'url('+ hero.imageURL +')'" (click)="selectMyTeam(hero)"></button>
+                    </ng-container>
+                </ng-container>      
+            </div>
+        </div>
+
+        <div class="row">
+                <div class="col">
+                    <button type="button" class="button button-close" (click)="clearMyTeam()">Clear Your Team</button>
+                </div>
+        </div>
+
+    
+
+        <div class="row">
+            <div class="col justify-content-start">
+                <h3 class="h3-underline">Select Enemy Team</h3>
+            </div>
+        </div>    
+        
+        <div class="row">
+            <div class="col-md-4" *ngFor="let role of ['tank','dps','support']">
+                <ng-container  *ngFor="let hero of heroes">
+                    <ng-container *ngIf= "role == hero.role">
+                        <button *ngIf="hero.enemySelected == false" class="button button-red" [style.backgroundImage]="'url('+ hero.imageURL +')'" (click)="selectEnemyTeam(hero)"></button>
+                        <button *ngIf="hero.enemySelected == true" class="button button-red-selected" [style.backgroundImage]="'url('+ hero.imageURL +')'" (click)="selectEnemyTeam(hero)"></button>
+                    </ng-container>
+                </ng-container>      
+            </div>
+        </div>
+
+        
+        <div class="row">
+                <div class="col">
+                    <button type="button" class="button button-close" (click)="clearEnemyTeam()">Clear Enemy Team</button>
+                </div>
+        </div>
+
+
+
+        <div class="row">
+                <div class="col-md-4">
+                        <h3>YOUR TEAM IS WEAK AGAINST:</h3>
+                        <div class="row">
+                            <div class="col">
+                                    <div class="row" *ngFor="let recipient of weakHeroes | keyvalue">
+                                            <div class="col">
+                                        <button class="button button-blue button-blue-small" [style.backgroundImage]="'url('+ recipient.key.imageURL +')'" ></button>  
+                                            <button class="button button-weak-against">IS WEAK AGAINST</button>  
+                                        <ng-container *ngFor="let value of recipient.value">
+                                            <button class="button button-red button-red-small" [style.backgroundImage]="'url('+ value.imageURL +')'" ></button>  
+                                        </ng-container>
+                                    </div>     
+                                    </div>        
+                            </div>
+                        </div>
+                     
+                </div>
+       
+
+    
+                <div class="col-md-4">
+                        <h3>BEST COUNTERS AGAINST ENEMY TEAM:</h3>
+                        <ng-container *ngFor="let i of [6,5,4,3,2,1]">
+                                <ng-container *ngFor="let goodCounter of goodCounters | keyvalue">
+                                    <ng-container *ngIf="goodCounter.value.length == i">
+                                        <button class="button button-red button-red-text" [style.backgroundImage]="'url('+ goodCounter.key.imageURL +')'" (click)="selectEnemyTeam(hero)">{{goodCounter.value.length}}</button> 
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                </div>    
+                
+                <div class="col-md-4">
+                        <h3>ALL ENEMY COUNTERS</h3>
+                        
+                        <div class="row">
+                                <div class="col">
+                                    <ng-container *ngFor="let enemy of enemyTeam">
+                                        <div class="row">
+                                            <div class="col">
+                                                <button class="button button-red-selected button-red button-red-small" [style.backgroundImage]="'url('+ enemy.imageURL +')'" ></button>
+                                                    <ng-container *ngFor="let weakHero of enemy.weakAgainst">       
+                                                        <button class="button button-blue button-blue-small" [style.backgroundImage]="'url('+ weakHero.imageURL +')'" ></button>
+                                                    </ng-container>
+                                            </div>
+                                        </div>    
+                                    </ng-container>
+                                </div> 
+                        </div>         
+                </div>
+
+        </div>
+
+        <br>
+        <br>
+
+        <div class="row">
+                <div class="col-md-4">
+                    
+                        <h3>ENEMIES NOT COUNTERED BY YOUR TEAM:</h3>
+                        <ng-container *ngFor="let notCountered of enemyNotCountered">
+                                <button class="button button-red" [style.backgroundImage]="'url('+ notCountered.imageURL +')'" ></button>  
+                        </ng-container>
+                    
+              
+                     
+                </div>
+            
+                <div class="col-md-4">
+                        <h3>YOUR TEAM THAT IS NOT COUNTERING ANYTHING:</h3>
+                            <ng-container *ngFor="let notCountering of myTeamNotCountering">
+                                    <button class="button button-blue" [style.backgroundImage]="'url('+ notCountering.imageURL +')'" ></button>  
+                            </ng-container>
+                        
+                    </div>
+            
+                    
+                <div class="col-md-4">
+                        <h3>MOST COUNTERED ON YOUR TEAM</h3>
+                            <ng-container *ngFor="let weak of weakOnTeam | keyvalue">
+                                    <button class="button button-blue button-blue-text" [style.backgroundImage]="'url('+ weak.key.imageURL +')'" (click)="selectEnemyTeam(hero)">{{weak.value}}</button>   
+                               
+                            </ng-container>
+                    </div>
+                  
+                </div>      
+
+
+              
+                
+
+
+</div>
+
